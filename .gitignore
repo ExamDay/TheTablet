@@ -158,4 +158,5 @@ seeds.py
 
 # CUSTOM SECURITY
 cryptopp/
-*.stash
+*.dat
+*.key
