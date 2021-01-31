@@ -28,6 +28,30 @@ using namespace CryptoPP;
 // void SavePrivateKey(const string& filename, const PrivateKey& key);
 // void SavePublicKey(const string& filename, const PublicKey& key);
 
+void Load(const string& filename, BufferedTransformation& bt)
+{
+    FileSource file(filename.c_str(), true /*pumpAll*/);
+
+    file.TransferTo(bt);
+    bt.MessageEnd();
+}
+
+void LoadPublicKey(const string& filename, PublicKey& key)
+{
+    ByteQueue queue;
+    Load(filename, queue);
+
+    key.Load(queue);
+}
+
+void LoadPrivateKey(const string& filename, PrivateKey& key)
+{
+    ByteQueue queue;
+    Load(filename, queue);
+
+    key.Load(queue);
+}
+
 void keySave(const string& filename, const BufferedTransformation& bt)
 {
     FileSink file(filename.c_str());
@@ -59,13 +83,15 @@ int KeyGen(const string fName) {
 
 };
 
-SecByteBlock EncrApp (char *keyName, char* inputPlaintext, int ptBytes) {
+SecByteBlock EncrApp (string keyName, char* inputPlaintext, int ptBytes) {
 
     AutoSeededRandomPool asRP;
 
     RSA::PublicKey pubKey;
 
-    pubKey.Initialize(int_n, int_e);
+    string pubKeyName = "public_" + keyName;
+
+    LoadPublicKey(pubKeyName, pubKey);
 
     SecByteBlock plaintext(ptBytes);
 
@@ -89,27 +115,53 @@ SecByteBlock EncrApp (char *keyName, char* inputPlaintext, int ptBytes) {
 
 }
 
-SecByteBlock DecrApp(SecByteBlock sBB, char* keyName) {
+SecByteBlock DecrApp(string cFileName, string keyName) {
 
     AutoSeededRandomPool rng;
 
-    RSA::PrivateKey pvK;
+    RSA::PrivateKey privKey;
 
+    string kname = "private_" + keyName;
 
+    LoadPrivateKey(kname, privKey);
 
-    RSAES<OAEP<SHA256> >::Decryptor decryptor(pvK);
+    string cname = cFileName + ".dat";
 
-    assert(0 != decryptor.FixedCiphertextLength());
-    assert(sBB.size() <= decryptor.FixedCiphertextLength());
+    basic_ifstream<unsigned char> cFile;
+
+    cFile.open(cname);
+
+    cFile.seekg(0, cFile.end);
+    int fileLength = cFile.tellg();
+    cFile.seekg(0, cFile.beg);
+
+    unsigned char* buffer = new unsigned char [fileLength - 1];
+
+    cFile.read(buffer, fileLength - 1);
+
+    SecByteBlock sBB(fileLength - 1);
+
+    for(int i = 0; i < fileLength - 1; i++) { //whacking EOF character
+
+      sBB[i] = buffer[i];
+
+    }
+
+    cout << "BUFFER CONTENTS\n\n" << buffer << "\n\nNIGGA\n";
+
+    RSAES<OAEP<SHA256> >::Decryptor decryptor(privKey);
+
+    // assert(0 != decryptor.FixedCiphertextLength());
+    // assert(sBB.size() <= decryptor.FixedCiphertextLength());
 
     size_t declength = decryptor.MaxPlaintextLength(sBB.size());
-    assert (0 != declength);
+    // assert (0 != declength);
     SecByteBlock recovered(declength);
 
     DecodingResult finout = decryptor.Decrypt(rng, sBB, sBB.size(), recovered);
 
-    assert(finout.isValidCoding);
-    assert(finout.messageLength <= decryptor.MaxPlaintextLength(sBB.size()));
+    // assert(finout.isValidCoding);
+    // assert(finout.messageLength <= decryptor.MaxPlaintextLength(sBB.size()));
 
     return recovered;
 };
@@ -121,9 +173,11 @@ int main (int argc, char **argv)
   int dflag = 0;
   int eflag = 0;
   int gflag = 0;
+  int fflag = 0;
   int kflag = 0;
   char *dvalue = NULL;
   char *evalue = NULL;
+  char *fvalue = NULL;
   char *gvalue = NULL;
   char *kvalue = NULL;
   int index;
@@ -131,7 +185,7 @@ int main (int argc, char **argv)
 
   opterr = 0;
 
-  while ((c = getopt (argc, argv, ":abd:e:g:k:")) != -1)
+  while ((c = getopt (argc, argv, ":abd:e:f:g:k:")) != -1)
     switch (c)
       {
       case 'a':
@@ -146,6 +200,10 @@ int main (int argc, char **argv)
       case 'e':
         evalue = optarg;
         eflag = 1;
+        break;
+      case 'f':
+        fvalue = optarg;
+        fflag = 1;
         break;
       case 'g':
         gvalue = optarg;
@@ -169,42 +227,47 @@ int main (int argc, char **argv)
         abort ();
       }
 
-  // printf ("aflag = %d, bflag = %d, cvalue = %s\n",
-  //         aflag, bflag, cvalue);
-
-
   //decryption code
   if (dflag == 1 && kflag == 1) {
 
-    int dBytes = sizeof(dvalue);
+    string ciphertextFileName(dvalue);
 
-    SecByteBlock sbb2(dBytes);
+    SecByteBlock decodeResult = DecrApp(dvalue, kvalue);
 
-    for (int i = 0; i < dBytes; i++) {
-        sbb2[i]= dvalue[i];
-    }
-
-
-    SecByteBlock ddr = DecrApp(sbb2, kvalue);
-
-    cout << ddr.data() << endl;
+    cout << decodeResult.data() << endl;
 
   }
 
-  if (eflag == 1 && kflag == 1) {
+  else if (eflag == 1 && kflag == 1 && fflag == 1) {
 
     int plainBytes = sizeof(evalue);
 
-    SecByteBlock sbb3 = EncrApp(kvalue, evalue, plainBytes);
+    SecByteBlock encodedMessage = EncrApp(kvalue, evalue, plainBytes);
 
-    cout << sbb3.data() << endl;
+    cout << encodedMessage.data() << endl;
+
+    fstream decres;
+
+    string decrFname(fvalue);
+
+    string decrFnameInPractice = decrFname + ".dat";
+    decres.open(decrFnameInPractice, ios::out);
+
+    decres << encodedMessage.data() << endl;
+
+    decres.close();
 
   }
 
-  if (gflag == 1) {
+  else if (gflag == 1) {
 
     KeyGen(gvalue);
 
+  }
+
+  else {
+    cout << "Invalid use of program. Terminating." << endl;
+    abort ();
   }
 
   for (index = optind; index < argc; index++)
