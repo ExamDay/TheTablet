@@ -49,13 +49,25 @@ void LoadPrivateKey(string &filename, PrivateKey &key) {
     key.Load(queue);
 }
 
-void keySave(string &filename, const BufferedTransformation &bt) {
-    filename = filename + ".key";
-    FileSink file(filename.c_str());
-
-    bt.CopyTo(file);
+void keySave(string fileName, RSA::PublicKey key){
+    // saves public/private key-pairs to disk in ".key" files.
+    ByteQueue queue;
+    key.Save(queue);
+    fileName = fileName + ".key";
+    FileSink file(fileName.c_str());
+    queue.CopyTo(file);
     file.MessageEnd();
-}
+};
+
+void keySave(string fileName, RSA::PrivateKey key) {
+    // saves public/private key-pairs to disk in ".key" files.
+    ByteQueue queue;
+    key.Save(queue);
+    fileName = fileName + ".key";
+    FileSink file(fileName.c_str());
+    queue.CopyTo(file);
+    file.MessageEnd();
+};
 
 int KeyGen(string fName) {
 
@@ -66,15 +78,15 @@ int KeyGen(string fName) {
     RSA::PrivateKey privKey(inv);
     RSA::PublicKey pubKey(inv);
 
-    ByteQueue queue;
-    pubKey.Save(queue);
+    // ByteQueue queue;
+    // pubKey.Save(queue);
     string pubName = "public_" + fName;
-    keySave(pubName, queue);
+    keySave(pubName, pubKey);
 
-    queue.Clear();
-    privKey.Save(queue);
+    // queue.Clear();
+    // privKey.Save(queue);
     string privName = "private_" + fName;
-    keySave(privName, queue);
+    keySave(privName, privKey);
 
     return 0;
 };

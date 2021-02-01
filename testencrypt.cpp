@@ -32,6 +32,44 @@ void Load(string &filename, BufferedTransformation &bt) {
     bt.MessageEnd();
 }
 
+void keySave(string fileName, RSA::PublicKey key){
+    // saves public keys to disk into a ".key" file.
+    ByteQueue queue;
+    key.Save(queue);
+    fileName = fileName + ".key";
+    FileSink file(fileName.c_str());
+    queue.CopyTo(file);
+    file.MessageEnd();
+};
+
+void keySave(string fileName, RSA::PrivateKey key) {
+    // saves private keys to disk into a ".key" file.
+    ByteQueue queue;
+    key.Save(queue);
+    fileName = fileName + ".key";
+    FileSink file(fileName.c_str());
+    queue.CopyTo(file);
+    file.MessageEnd();
+};
+
+int KeyGen(string fName) {
+
+    AutoSeededRandomPool rng;
+    InvertibleRSAFunction inv;
+    inv.GenerateRandomWithKeySize(rng, 2048);
+
+    RSA::PrivateKey privKey(inv);
+    RSA::PublicKey pubKey(inv);
+
+    string pubName = "public_" + fName;
+    keySave(pubName, pubKey);
+
+    string privName = "private_" + fName;
+    keySave(privName, privKey);
+
+    return 0;
+};
+
 int main() {
     // Generate keys
     AutoSeededRandomPool rng;
@@ -48,7 +86,7 @@ int main() {
     char secret[] = "DANK WEED FUCK YEAH SU GOIIIII!";
     SecByteBlock plaintext(strlen(secret));
     // memset(plaintext, 'A', SECRET_SIZE);
-    byte *plainptr = plaintext.data(); 
+    byte *plainptr = plaintext.data();
     for (int i = 0; i < strlen(secret); i++) {
         memset(plainptr, secret[i], 1);
         plainptr++;
@@ -95,7 +133,7 @@ int main() {
 
     ByteQueue buffer;
     Load(encFname, buffer);
-    
+
     cout << "\n\nfile length: " << fileLength << endl;
     byte *dataptr = ciphertext.data();
     for (int i = 0; i < fileLength; i++) {
@@ -137,10 +175,10 @@ int main() {
     assert(plaintext == recovered);
 
     cout << "\n\nrecovered size:\n" << recovered.size() << endl;
-    cout << "\n\nrecovered:\n"; 
+    cout << "\n\nrecovered:\n";
     byte *recoveredptr = recovered.data();
     for (int i = 0; i < recovered.size(); i++) {
-        cout << *recoveredptr; 
+        cout << *recoveredptr;
         recoveredptr++;
     };
     cout << endl;
