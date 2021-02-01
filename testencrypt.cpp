@@ -52,22 +52,32 @@ void keySave(string fileName, RSA::PrivateKey key) {
     file.MessageEnd();
 };
 
-int KeyGen(string fName) {
+int KeyGen(string fileName, size_t keySize) {
 
     AutoSeededRandomPool rng;
     InvertibleRSAFunction inv;
-    inv.GenerateRandomWithKeySize(rng, 2048);
+    inv.GenerateRandomWithKeySize(rng, keySize);
 
     RSA::PrivateKey privKey(inv);
     RSA::PublicKey pubKey(inv);
 
-    string pubName = "public_" + fName;
+    string pubName = "public_" + fileName;
     keySave(pubName, pubKey);
 
-    string privName = "private_" + fName;
+    string privName = "private_" + fileName;
     keySave(privName, privKey);
 
     return 0;
+};
+
+void copyToSecBlock(char* text, size_t textLength, SecByteBlock* secbb){
+    // copies data from an array of chars into a SecByteBlock
+    byte *secPtr = secbb->data();
+    for (int i = 0; i < textLength; i++) {
+        memset(secPtr, text[i], 1);
+        cout << text[i] << endl;
+        secPtr++;
+    };
 };
 
 int main() {
@@ -85,12 +95,13 @@ int main() {
     // static const int SECRET_SIZE = 160;
     char secret[] = "DANK WEED FUCK YEAH SU GOIIIII!";
     SecByteBlock plaintext(strlen(secret));
-    // memset(plaintext, 'A', SECRET_SIZE);
-    byte *plainptr = plaintext.data();
-    for (int i = 0; i < strlen(secret); i++) {
-        memset(plainptr, secret[i], 1);
-        plainptr++;
-    };
+    copyToSecBlock(secret, strlen(secret), &plaintext);
+    // byte *plainptr = plaintext.data();
+    // for (int i = 0; i < strlen(secret); i++) {
+    //     memset(plainptr, secret[i], 1);
+    //     cout << secret[i] << endl;
+    //     plainptr++;
+    // };
 
     ////////////////////////////////////////////////
     // Encrypt
