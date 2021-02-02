@@ -146,6 +146,9 @@ known_hosts
 .bash_history
 .gitconfig
 
+# CUSTOM VIM
+*.swp
+
 # CUSTOM BACKEND
 backend/src/config/*
 node_modules/
