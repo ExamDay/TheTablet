@@ -240,7 +240,7 @@ int main(int argc, char **argv) {
     }
     else if (eflag == 1 && kflag == 1 && fflag == 1) {
         int plainLength = strlen(evalue);
-        SecByteBlock ciphertext = Encrypt("gabe", evalue, plainLength);
+        SecByteBlock ciphertext = Encrypt(kvalue, evalue, plainLength);
         cout << "\n\nencodedMessage:\n" << ciphertext.data() << endl;
         // Save
         saveSecBytes(fvalue, ciphertext);
