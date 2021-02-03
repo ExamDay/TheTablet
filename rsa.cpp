@@ -237,7 +237,15 @@ int main(int argc, char **argv) {
         string privKeyName = "private_" + (string)kvalue + ".key";
         LoadPrivateKey(privKeyName, privKey);
         SecByteBlock recovered = Decrypt(ciphertext, privKey);
-        cout << "recovered:\n" << recovered.data() << endl;
+        // cout << "recovered:\n" << recovered.data() << endl;
+
+        cout << "Recovered plaintext:" << endl;
+
+        for (int ch = 0; ch < recovered.size(); ch ++) {
+           cout << recovered[ch];
+        }
+
+        cout << endl;
 
     }
     else if (eflag == 1 && kflag == 1 && fflag == 1) {
