@@ -163,3 +163,4 @@ seeds.py
 cryptopp/
 *.dat
 *.key
+*.bin
