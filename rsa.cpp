@@ -117,10 +117,10 @@ SecByteBlock loadSecBytes(string filename) {
     ByteQueue buffer;
     Load(filename, buffer);
 
-    cout << "\n\nfile length: " << fileLength << endl;
+    // cout << "\n\nfile length: " << fileLength << endl;
     byte *dataptr = ciphertext.data();
     for (int i = 0; i < fileLength; i++) {
-        cout << buffer[i];
+        // cout << buffer[i];
         memset(dataptr, buffer[i], 1);
         dataptr++;
     };
@@ -176,7 +176,9 @@ SecByteBlock Decrypt(SecByteBlock ciphertext, RSA::PrivateKey privKey) {
 
     recovered.resize(decodeReport.messageLength);
 
-    cout << "\n\nrecovered size:\n" << recovered.size() << endl;
+    // cout << "\n\nmessage length: " << decodeReport.messageLength << endl;
+
+    // cout << "\n\nrecovered size:\n" << recovered.size() << endl;
     return recovered;
 };
 
@@ -235,13 +237,21 @@ int main(int argc, char **argv) {
         string privKeyName = "private_" + (string)kvalue + ".key";
         LoadPrivateKey(privKeyName, privKey);
         SecByteBlock recovered = Decrypt(ciphertext, privKey);
-        cout << "\n\nrecovered:\n" << recovered.data() << endl;
+        // cout << "recovered:\n" << recovered.data() << endl;
+
+        cout << "Recovered plaintext:" << endl;
+
+        for (int ch = 0; ch < recovered.size(); ch ++) {
+           cout << recovered[ch];
+        }
+
+        cout << endl;
 
     }
     else if (eflag == 1 && kflag == 1 && fflag == 1) {
         int plainLength = strlen(evalue);
         SecByteBlock ciphertext = Encrypt(kvalue, evalue, plainLength);
-        cout << "\n\nencodedMessage:\n" << ciphertext.data() << endl;
+        // cout << "\n\nencodedMessage:\n" << ciphertext.data() << endl;
         // Save
         saveSecBytes(fvalue, ciphertext);
     }
