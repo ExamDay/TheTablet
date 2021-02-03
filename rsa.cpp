@@ -188,11 +188,11 @@ int main(int argc, char **argv) {
     int dflag = 0;
     int eflag = 0;
     int gflag = 0;
-    int fflag = 0;
+    int oflag = 0;
     int kflag = 0;
     char *dvalue = NULL;
     char *evalue = NULL;
-    char *fvalue = NULL;
+    char *ovalue = NULL;
     char *gvalue = NULL;
     char *kvalue = NULL;
     int index;
@@ -200,7 +200,7 @@ int main(int argc, char **argv) {
 
     opterr = 0;
 
-    while ((c = getopt(argc, argv, ":d:e:f:g:k:")) != -1)
+    while ((c = getopt(argc, argv, ":d:e:o:g:k:")) != -1)
         switch (c) {
         case 'd':
             dvalue = optarg;
@@ -209,9 +209,9 @@ int main(int argc, char **argv) {
             evalue = optarg;
             eflag = 1;
             break;
-        case 'f':
-            fvalue = optarg;
-            fflag = 1;
+        case 'o':
+            ovalue = optarg;
+            oflag = 1;
             break;
         case 'g':
             gvalue = optarg;
@@ -248,12 +248,12 @@ int main(int argc, char **argv) {
         cout << endl;
 
     }
-    else if (eflag == 1 && kflag == 1 && fflag == 1) {
+    else if (eflag == 1 && kflag == 1 && oflag == 1) {
         int plainLength = strlen(evalue);
         SecByteBlock ciphertext = Encrypt(kvalue, evalue, plainLength);
         // cout << "\n\nencodedMessage:\n" << ciphertext.data() << endl;
         // Save
-        saveSecBytes(fvalue, ciphertext);
+        saveSecBytes(ovalue, ciphertext);
     }
     else if (gflag == 1) {
         keyFileGen(gvalue, 2048);
