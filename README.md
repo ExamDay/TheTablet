@@ -47,7 +47,7 @@ grip README.md --export README.html
 - To encrypt a message:
 (name on keyfile should match name of recipient for convenience)
 ```bash
-./rsa.bin -e "your message" -k name_on_public_keyfile
+./rsa.bin -e "your message" -k name_on_public_keyfile -o ciphertext.dat
 ```
 - To decrypt a message:
 ```bash
