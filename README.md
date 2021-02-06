@@ -34,7 +34,7 @@ cd path/to/this/repository/
 pre-commit install
 ```
 ## How to Compile
-- To compile binaries from our C++ files; use g++, include the cryptopp folder for the headers, and link the cryptopp library:
+- To compile binaries from our C++ files; use g++, include the cryptopp folder for the headers, and link the cryptopp library like so:
 ```bash
 g++ rsa.cpp -o rsa.bin -I cryptopp/ -lcryptopp
 ```
