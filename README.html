@@ -86,11 +86,17 @@
 <a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 <ul>
 <li>Clone this repository.</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre>git clone git@git.blackboxlabs.dev:/srv/git/tablet.git</pre></div>
+<ul>
 <li>Clone Cryptopp into the root of this repository.</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> tablet
+git clone https://github.com/weidai11/cryptopp.git</pre></div>
+<ul>
 <li>Install Cryptopp by:</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> path/to/this/repository/
-<span class="pl-c1">cd</span> cryptopp/
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> cryptopp/
 make
 sudo make install</pre></div>
 <h3>
@@ -99,7 +105,8 @@ sudo make install</pre></div>
 <ul>
 <li>Install pre-commit</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre>sudo apt install pre-commit
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> path/to/this/repository/
+sudo apt install pre-commit
 <span class="pl-c1">cd</span> path/to/this/repository/
 pre-commit install</pre></div>
 <h2>

@@ -8,10 +8,16 @@ All data handling components are effectively air-gapped from upstream components
 
 ## Installation
 - Clone this repository.
+```bash
+git clone git@git.blackboxlabs.dev:/srv/git/tablet.git
+```
 - Clone Cryptopp into the root of this repository.
+```bash
+cd tablet
+git clone https://github.com/weidai11/cryptopp.git
+```
 - Install Cryptopp by:
 ```bash
-cd path/to/this/repository/
 cd cryptopp/
 make
 sudo make install
@@ -22,6 +28,7 @@ For contributors to the project do this before making your first commit:
 
 - Install pre-commit
 ```bash
+cd path/to/this/repository/
 sudo apt install pre-commit
 cd path/to/this/repository/
 pre-commit install
