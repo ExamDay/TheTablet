@@ -63,18 +63,18 @@
   <div class="page">
     <div id="preview-page" class="preview-page" data-autorefresh-url="">
 
-
+    
 
       <div role="main" class="main-content">
         <div class="container new-discussion-timeline experiment-repo-nav">
           <div class="repository-content">
             <div id="readme" class="readme boxed-group clearfix announce instapaper_body md">
-
+              
                 <h3>
                   <span class="octicon octicon-book"></span>
                   README.md
                 </h3>
-
+              
               <article class="markdown-body entry-content" itemprop="text" id="grip-content">
                 <h1>
 <a id="user-content-firmware-for-the-tablet-communication-system" class="anchor" href="#firmware-for-the-tablet-communication-system" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Firmware for The Tablet Communication System</h1>
@@ -86,11 +86,17 @@
 <a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
 <ul>
 <li>Clone this repository.</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre>git clone git@git.blackboxlabs.dev:/srv/git/tablet.git</pre></div>
+<ul>
 <li>Clone Cryptopp into the root of this repository.</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> tablet
+git clone https://github.com/weidai11/cryptopp.git</pre></div>
+<ul>
 <li>Install Cryptopp by:</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> path/to/this/repository/
-<span class="pl-c1">cd</span> cryptopp/
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> cryptopp/
 make
 sudo make install</pre></div>
 <h3>
@@ -99,13 +105,14 @@ sudo make install</pre></div>
 <ul>
 <li>Install pre-commit</li>
 </ul>
-<div class="highlight highlight-source-shell"><pre>sudo apt install pre-commit
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> path/to/this/repository/
+sudo apt install pre-commit
 <span class="pl-c1">cd</span> path/to/this/repository/
 pre-commit install</pre></div>
 <h2>
 <a id="user-content-how-to-compile" class="anchor" href="#how-to-compile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to Compile</h2>
 <ul>
-<li>To compile binaries from our C++ files; use g++, include the cryptopp folder for the headers, and link the cryptopp library:</li>
+<li>To compile binaries from our C++ files; use g++, include the cryptopp folder for the headers, and link the cryptopp library like so:</li>
 </ul>
 <div class="highlight highlight-source-shell"><pre>g++ rsa.cpp -o rsa.bin -I cryptopp/ -lcryptopp</pre></div>
 <ul>
@@ -138,7 +145,7 @@ pre-commit install</pre></div>
         </div>
       </div>
 
-
+    
 
   </div>
   <div>&nbsp;</div>
