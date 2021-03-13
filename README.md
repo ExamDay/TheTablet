@@ -1,4 +1,4 @@
-# Firmware for The Tablet Communication System
+# Firmware for The Tablet - Secure Communication System
 
 The Tablet is a secure communication device designed according the NSAR (Non-Symmetric Accessibility Relation) security policy.
 
