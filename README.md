@@ -24,7 +24,7 @@ sudo make install
 ```
 ### Optional
 
-For contributors to the project do this before making your first commit:
+For contributors to the project; do this before making your first commit:
 
 - Install pre-commit
 ```bash

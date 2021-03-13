@@ -82,6 +82,7 @@ void LoadPrivateKey(string &filename, PrivateKey &key) {
 
     key.Load(queue);
 }
+
 SecByteBlock charToSecBlock(char *text, size_t textLength) {
     // copies data from an array of chars into the data region of a SecByteBlock
     SecByteBlock secbb(textLength);
