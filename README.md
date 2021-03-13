@@ -28,9 +28,8 @@ For contributors to the project; do this before making your first commit:
 
 - Install pre-commit
 ```bash
-cd path/to/this/repository/
+cd /path/to/this/repository/
 sudo apt install pre-commit
-cd path/to/this/repository/
 pre-commit install
 ```
 ## How to Compile
