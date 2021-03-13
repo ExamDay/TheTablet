@@ -257,7 +257,7 @@ int main(int argc, char **argv) {
         saveSecBytes(ovalue, ciphertext);
     }
     else if (gflag == 1) {
-        keyFileGen(gvalue, 2048);
+        keyFileGen(gvalue, 4096);
     }
     else {
         cout << "Invalid use of program. Terminating." << endl;
