@@ -1,11 +1,11 @@
 <p align="center">Firmware for</p>
 <h1 align="center">The Tablet:<br>A Secure Communication System</h1>
 
-The Tablet is a secure communication device designed according the NSAR (Non-Symmetric Accessibility Relation) security policy.
+The Tablet is a secure communication device designed to implement the NSAR (Non-Symmetric Accessibility Relation) security policy.
 
 ## How it works
 
-All data handling components are effectively air-gapped from upstream components to prevent information leakage to devices connected upstream. Asymmetric encryption masks every message sent, and decryption is handled in such a way as to guarantee plaintext is hardware inaccessible to any networked device.
+All data handling components are air-gapped from upstream components to prevent information leakage to any connected device. Asymmetric encryption masks every message sent, and decryption is handled in such a way as to guarantee plaintext is hardware inaccessible to any networked device.
 
 ## Installation
 - Clone this repository.
