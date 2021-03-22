@@ -84,7 +84,7 @@
 <a id="user-content-how-it-works" class="anchor" href="#how-it-works" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How it works</h2>
 <p>All data handling components are air-gapped from upstream components to prevent information leakage to any connected device. Asymmetric encryption masks every message sent, and decryption is handled in such a way as to guarantee plaintext is hardware inaccessible to any networked device.</p>
 <h2>
-<a id="user-content-installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+<a id="user-content-installing-dependencies" class="anchor" href="#installing-dependencies" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing Dependencies</h2>
 <ul>
 <li>Clone this repository.</li>
 </ul>
@@ -100,15 +100,6 @@ git clone https://github.com/weidai11/cryptopp.git</pre></div>
 <div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> cryptopp/
 make
 sudo make install</pre></div>
-<h3>
-<a id="user-content-optional" class="anchor" href="#optional" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Optional</h3>
-<p>For contributors to the project; do this before making your first commit:</p>
-<ul>
-<li>Install pre-commit</li>
-</ul>
-<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /path/to/this/repository/
-sudo apt install pre-commit
-pre-commit install</pre></div>
 <h2>
 <a id="user-content-how-to-compile" class="anchor" href="#how-to-compile" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>How to Compile</h2>
 <ul>
@@ -139,13 +130,38 @@ pre-commit install</pre></div>
 </ul>
 <div class="highlight highlight-source-shell"><pre>./rsa.bin -d ciphertext.dat -k name_on_private_keyfile</pre></div>
 <h2>
+<a id="user-content-contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+<p>For contributors to the project; do this before making your first commit:</p>
+<ul>
+<li>Install pre-commit</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c1">cd</span> /path/to/this/repository/
+sudo apt install pre-commit
+pre-commit install</pre></div>
+<p>(we do all of our development on linux)</p>
+<ul>
+<li>To test updates to the readme and other GitHub flavored markdown, simply install Grip
+and feed it your desired file.</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre>pip3 install grip
+grip README.md</pre></div>
+<ul>
+<li>
+<p>Then follow the link provided by the Grip sever for a live preview of your work.</p>
+</li>
+<li>
+<p>When satisfied with your changes you can compile to an html file with:</p>
+</li>
+</ul>
+<div class="highlight highlight-source-shell"><pre>grip README.md --export README.html</pre></div>
+<h2>
 <a id="user-content-authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors</h2>
 <ul>
 <li>
 <strong>Gabe M. LaFond</strong> - <em>Initial work</em> - <a href="https://github.com/ExamDay">ExamDay</a>
 </li>
 </ul>
-<p>See also the list of <a href="https://github.com/ExamDay/bitwise/contributors">contributors</a> who participated in this project.</p>
+<p>See also the list of <a href="https://github.com/ExamDay/TheTablet/contributors">contributors</a> who participated in this project.</p>
 <h2>
 <a id="user-content-license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
 <p>This project is licensed under the MIT License - see the <a href="LICENSE.md">LICENSE.md</a> file for details</p>
