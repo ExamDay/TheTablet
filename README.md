@@ -60,3 +60,12 @@ grip README.md --export README.html
 ```bash
 ./rsa.bin -d ciphertext.dat -k name_on_private_keyfile
 ```
+## Authors
+
+* **Gabe M. LaFond** - *Initial work* - [ExamDay](https://github.com/ExamDay)
+
+See also the list of [contributors](https://github.com/ExamDay/bitwise/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
